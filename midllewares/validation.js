@@ -1,5 +1,3 @@
-const { BadRequest } = require("http-errors");
-
 const validation = (scheme) => {
   const func = (req, res, next) => {
     const { error } = scheme.validate(req.body);

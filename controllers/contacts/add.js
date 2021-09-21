@@ -1,12 +1,9 @@
-const contactsOperation = require("../../model/index");
+const { Contact } = require("../../models/contact");
+const { sendSuccessReq } = require("../../helpers");
 
 const add = async (req, res) => {
-  const contact = await contactsOperation.addContact(req.body);
-  res.status(201).json({
-    status: "success",
-    code: 201,
-    data: { contact },
-  });
+  const contact = await Contact.create(req.body);
+  sendSuccessReq(res, { contact }, 201);
 };
 
 module.exports = add;

@@ -1,6 +1,26 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
+const mangoose = require("mongoose");
+require("dotenv").config();
+
+const { DB_HOST, PORT = 3000 } = process.env;
+
+mangoose
+  .connect(DB_HOST, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Database connection successful");
+    app.listen(PORT, () => {
+      console.log(`Server running. Use our API on port: ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+    process.exit(1);
+  });
 
 const contactsRouter = require("./routes/api/contacts");
 
@@ -20,7 +40,7 @@ app.use((req, res) => {
 
 app.use((err, req, res, next) => {
   const { status = 500, message = "Server error" } = err;
-  res.status(status).json({ message });
+  res.status(status).json({ status: "error", code: status, message });
 });
 
 module.exports = app;

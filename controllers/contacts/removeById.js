@@ -1,5 +1,5 @@
 const { Contact } = require("../../models/contact");
-const { sendSuccessReq } = require("../../helpers");
+const { sendResponse } = require("../../helpers");
 const { NotFound } = require("http-errors");
 
 const removeById = async (req, res, next) => {
@@ -9,7 +9,7 @@ const removeById = async (req, res, next) => {
     throw new NotFound(`Contact with id=${contactId} not found`);
   }
 
-  sendSuccessReq(res, { contact }, 201, "Contact deleted");
+  sendResponse(res, { contact }, 201, "Contact deleted");
 };
 
 module.exports = removeById;

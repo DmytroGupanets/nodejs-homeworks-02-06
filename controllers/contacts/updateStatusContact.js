@@ -1,5 +1,5 @@
 const { Contact } = require("../../models/contact");
-const { sendSuccessReq } = require("../../helpers");
+const { sendResponse } = require("../../helpers");
 const { NotFound } = require("http-errors");
 
 const updateStatusContact = async (req, res) => {
@@ -20,7 +20,11 @@ const updateStatusContact = async (req, res) => {
     throw new NotFound(`Contact with id=${req.params.contactId} not found!`);
   }
 
-  sendSuccessReq(res, { contact });
+  sendResponse({
+    res,
+    data: { contact, message: "Status updated" },
+    status: 200,
+  });
 };
 
 module.exports = updateStatusContact;

@@ -1,11 +1,16 @@
+const sendResponse = require("../helpers/sendResponse");
+
 const validation = (scheme) => {
   const func = (req, res, next) => {
     const { error } = scheme.validate(req.body);
     if (error) {
-      return res.status(404).json({
-        status: "error",
-        code: 404,
-        message: error.message,
+      sendResponse({
+        res,
+        status: 400,
+        statusMessage: "Bad request",
+        data: {
+          message: error.message,
+        },
       });
     }
     next();

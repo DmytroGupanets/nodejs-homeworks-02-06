@@ -1,5 +1,5 @@
 const { Contact } = require("../../models/contact");
-const { sendSuccessReq } = require("../../helpers");
+const { sendResponse } = require("../../helpers");
 const { NotFound } = require("http-errors");
 
 const getById = async (req, res, next) => {
@@ -9,7 +9,7 @@ const getById = async (req, res, next) => {
     throw new NotFound(`Contact with id=${contactId} not found`);
   }
 
-  sendSuccessReq(res, { contact });
+  sendResponse({ res, data: { contact }, status: 200 });
 };
 
 module.exports = getById;

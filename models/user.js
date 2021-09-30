@@ -25,6 +25,7 @@ const userSchema = Schema(
       required: [true, "Password is required"],
       minLength: 6,
     },
+    avatarURL: String,
 
     subscription: {
       type: String,
@@ -45,6 +46,10 @@ userSchema.methods.setPassword = function (password) {
 
 userSchema.methods.comparePassword = function (password) {
   return bcrypt.compareSync(password, this.password);
+};
+
+userSchema.methods.setDefaultAvatar = function (avatar) {
+  this.avatarURL = avatar;
 };
 
 const { SECRET_KEY } = process.env;

@@ -1,5 +1,6 @@
 const { sendResponse } = require("../../helpers");
 const { User } = require("../../models");
+const gravatar = require("gravatar");
 
 const signup = async (req, res) => {
   const { email, password } = req.body;
@@ -19,7 +20,7 @@ const signup = async (req, res) => {
   const newUser = new User({ email });
 
   newUser.setPassword(password);
-
+  newUser.setDefaultAvatar(gravatar.url(newUser.email, { s: "200" }));
   await newUser.save();
 
   sendResponse({

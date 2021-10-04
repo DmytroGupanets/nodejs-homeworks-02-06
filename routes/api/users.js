@@ -5,6 +5,7 @@ const {
   controllerWrapper,
   authenticate,
   validation,
+  upload,
 } = require("../../midllewares");
 const { joiUserSubscriptionUpdateSchema } = require("../../models");
 
@@ -16,5 +17,12 @@ router.patch(
 );
 
 router.post("/current", authenticate, controllerWrapper(ctrl.userInfo));
+
+router.patch(
+  "/avatars",
+  authenticate,
+  upload.single("avatar"),
+  controllerWrapper(ctrl.updateAvatar)
+);
 
 module.exports = router;

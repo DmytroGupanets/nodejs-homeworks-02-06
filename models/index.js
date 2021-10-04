@@ -6,6 +6,8 @@ const { User } = require("./user");
 const { joiUserSchema } = require("./user");
 const { joiUserSubscriptionUpdateSchema } = require("./user");
 
+const Avatar = require("./avatar");
+
 module.exports = {
   Contact,
   joiContactScheme,
@@ -13,4 +15,6 @@ module.exports = {
   User,
   joiUserSchema,
   joiUserSubscriptionUpdateSchema,
+
+  Avatar,
 };

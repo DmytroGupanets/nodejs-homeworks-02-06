@@ -3,14 +3,10 @@ const logger = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
-// HW - 05
-// const fs = require("fs/promises");
-
 const { sendResponse } = require("./helpers");
 const authRouter = require("./routes/api/auth");
 const contactsRouter = require("./routes/api/contacts");
 const usersRouter = require("./routes/api/users");
-// const avatarsRouter = require("./routes/api/avatars");
 
 const { DB_HOST, PORT = 3000 } = process.env;
 
@@ -42,8 +38,6 @@ app.use(express.static("public"));
 app.use("/api/auth", authRouter);
 app.use("/api/contacts", contactsRouter);
 app.use("/api/users", usersRouter);
-
-// app.use("/api/avatars", avatarsRouter);
 
 app.use((req, res) => {
   sendResponse({

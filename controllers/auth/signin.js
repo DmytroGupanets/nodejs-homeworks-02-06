@@ -1,24 +1,26 @@
-const { User } = require("../../models");
-const { sendResponse } = require("../../helpers");
+const { User } = require("../../models")
+const { sendResponse } = require("../../helpers")
 
 const signin = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email })
 
-  if (!user || !user.comparePassword(password)) {
+  if (!user || !user.comparePassword(password) || !user.isVerified) {
     sendResponse({
       res,
       status: 401,
       statusMessage: "Unauthorized",
-      data: { message: "Email or password is wrong" },
-    });
-    return;
+      data: {
+        message: "Email/password is wrong or user`s email is not verified"
+      }
+    })
+    return
   }
 
-  const token = user.createToken();
+  const token = user.createToken()
 
-  await User.findByIdAndUpdate(user._id, { token });
+  await User.findByIdAndUpdate(user._id, { token })
 
   sendResponse({
     res,
@@ -26,9 +28,9 @@ const signin = async (req, res) => {
     statusMessage: "Login success",
     data: {
       token,
-      user: { email: user.email, subscription: user.subscription },
-    },
-  });
-};
+      user: { email: user.email, subscription: user.subscription }
+    }
+  })
+}
 
-module.exports = signin;
+module.exports = signin

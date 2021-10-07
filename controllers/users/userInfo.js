@@ -1,13 +1,13 @@
-const { sendResponse } = require("../../helpers");
+const { sendResponse } = require("../../helpers")
 
 const userInfo = async (req, res) => {
   sendResponse({
     res,
     data: {
       email: req.user.email,
-      subscription: req.user.subscription,
-    },
-  });
-};
+      subscription: req.user.subscription
+    }
+  })
+}
 
-module.exports = userInfo;
+module.exports = userInfo

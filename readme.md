@@ -1,31 +1,165 @@
-## GoIT Node.js Course Template Homework
+Node.js Homeworks 02-06
 
-Выполните форк этого репозитория для выполнения домашних заданий (2-6)
-Форк создаст репозиторий на вашем http://github.com
+# Contacts phonebook API
 
-Добавьте ментора в коллаборацию
+## Scripts:
 
-Для каждой домашней работы создавайте свою ветку.
+- `npm start` - run server in production mode,
+- `npm run start:dev` - run server in development mode,
+- `npm run lint` - run eslint,
+- `npm run lint:fix` - run eslint with auto-fix errors,
+- `npm test` - run tests,
+- `npm run test:coverage` - run tests with coverage
 
-- hw02
-- hw03
-- hw04
-- hw05
-- hw06
+## AUTHORIZATION REQUEST
 
-Каждая новая ветка для дз должна делаться с master
+### Registration request example
 
-После того как вы закончили выполнять домашнее задание в своей ветке, необходимо сделать пулл-реквест (PR). Потом добавить ментора для ревью кода. Только после того как ментор заапрувит PR, вы можете выполнить мердж ветки с домашним заданием в мастер.
+```
+POST /api/auth/signup
 
-Внимательно читайте комментарии ментора. Исправьте замечания и сделайте коммит в ветке с домашним заданием. Изменения подтянуться в PR автоматически после того как вы отправите коммит с исправлениями на github
-После исправления снова добавьте ментора на ревью кода.
+Content-Type: application/json
+RequestBody: {
+  "email": "example@example.com",
+  "password": "examplepassword"
+}
+```
 
-- При сдаче домашней работы есть ссылка на PR
-- JS-код чистый и понятный, для форматирования используется Prettier
+### Login request example (User`s email should be verified)
 
-### Команды:
+```
+POST /api/auth/signin
 
-- `npm start` &mdash; старт сервера в режиме production
-- `npm run start:dev` &mdash; старт сервера в режиме разработки (development)
-- `npm run lint` &mdash; запустить выполнение проверки кода с eslint, необходимо выполнять перед каждым PR и исправлять все ошибки линтера
-- `npm lint:fix` &mdash; та же проверка линтера, но с автоматическими исправлениями простых ошибок
+Content-Type: application/json
+RequestBody: {
+  "email": "example@example.com",
+  "password": "examplepassword"
+}
+```
+
+### Logout request example
+
+```
+POST /api/auth/signout
+
+Authorization: "Bearer {{token}}"
+```
+
+## USERS REQUEST
+
+### Current user request
+
+```
+GET api/users/current
+
+Authorization: "Bearer {{token}}"
+```
+
+### Update user`s subscription
+
+```
+PATCH /api/users
+
+Content-Type: application/json
+Authorization: "Bearer {{token}}"
+RequestBody: {
+  "subscription": "starter"
+}
+```
+
+### Update user`s avatar
+
+```
+PATCH /api/users/avatars
+
+Content-Type: multipart/form-data
+Authorization: "Bearer {{token}}"
+RequestBody: {
+  "avatar": file
+}
+```
+
+### Verification of user`s email
+
+```
+GET /api/users/verify/:verifyToken
+```
+
+### Resend email verification token
+
+```
+POST /api/users/verify
+
+Content-Type: application/json
+RequestBody: {
+  "email": "example@example.com"
+}
+```
+
+## Contacts requests
+
+### Get contacts
+
+```
+GET /api/contacts
+
+Authorization: "Bearer {{token}}"
+```
+
+### Get contact by id
+
+```
+GET /api/contacts/:contactId
+
+Authorization: "Bearer {{token}}"
+```
+
+### Add new contact
+
+```
+POST /api/contacts
+
+Content-Type: application/json
+Authorization: "Bearer {{token}}"
+RequestBody: {
+  "name": "exampleName",
+  "email": "example@example.com",
+  "phone": "1234567"
+  "favorite": {{Boolean}}   //optional
+}
+```
+
+### Delete contact
+
+```
+DELETE /api/contacts/:contactId
+
+Authorization: "Bearer {{token}}"
+```
+
+### Update contact information
+
+```
+PATCH /api/contacts:contactId
+
+Content-Type: application/json
+Authorization: "Bearer {{token}}"
+RequestBody: {
+  "name": "exampleName",                    // NOTE: "Should contain at least
+  "email": "example@example.com",           // one of the following params"
+  "phone": "1234567"
+  "favorite": {{Boolean}}
+}
+```
+
+### Update contact favorite status
+
+```
+PATCH /api/contacts/:contactId/favorite
+
+Content-Type: application/json
+Authorization: "Bearer {{token}}"
+RequestBody: {
+  "favorite": {{Boolean}}
+}
+```

@@ -1,15 +1,15 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require("mongoose")
 
 const avatarSchema = Schema(
   {
     avatar: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   { versionKey: false, timestamps: true }
-);
+)
 
-const Avatar = model("avatar", avatarSchema);
+const Avatar = model("avatar", avatarSchema)
 
-module.exports = Avatar;
+module.exports = Avatar

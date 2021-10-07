@@ -9,7 +9,8 @@ module.exports = {
     ecmaVersion: 12,
   },
   rules: {
-    "comma-dangle": "on",
-    "space-before-function-paren": "off",
+    "comma-dangle": 0,
+    "space-before-function-paren": 2,
+    quotes: [2, "double", { avoidEscape: true }],
   },
-};
+}

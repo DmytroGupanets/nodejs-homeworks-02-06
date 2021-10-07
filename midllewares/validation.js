@@ -1,21 +1,21 @@
-const sendResponse = require("../helpers/sendResponse");
+const sendResponse = require("../helpers/sendResponse")
 
 const validation = (scheme) => {
   const func = (req, res, next) => {
-    const { error } = scheme.validate(req.body);
+    const { error } = scheme.validate(req.body)
     if (error) {
       sendResponse({
         res,
         status: 400,
         statusMessage: "Bad request",
         data: {
-          message: error.message,
-        },
-      });
+          message: error.message
+        }
+      })
     }
-    next();
-  };
-  return func;
-};
+    next()
+  }
+  return func
+}
 
-module.exports = validation;
+module.exports = validation
